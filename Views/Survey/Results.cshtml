@@ -1,0 +1,77 @@
+﻿@model List<LifestyleSurveyApp.Models.Survey>
+
+@{
+    ViewData["Title"] = "Survey Results";
+}
+
+<h2 class="text-center">Survey Results</h2>
+
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info">@ViewBag.Message</div>
+}
+else
+{
+    <!-- Survey Statistics -->
+    <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+            <span class="fw-bold">Total number of Surveys:</span>
+            <span>@ViewBag.Total</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Average Age:</span>
+            <span>@ViewBag.AverageAge</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Oldest person who participated in survey:</span>
+            <span>@ViewBag.Oldest</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Youngest person who participated in survey:</span>
+            <span>@ViewBag.Youngest</span>
+        </li>
+    </ul>
+
+    <!-- Food Preferences -->
+    <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Percentage of people who like Pizza:</span>
+            <span>@ViewBag.PizzaPercent%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Percentage of people who like Pasta:</span>
+            <span>@ViewBag.PastaPercent%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Percentage of people who like Pap & Wors:</span>
+            <span>@ViewBag.PapAndWorsPercent%</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>Percentage of people who like Other Food:</span>
+            <span>@ViewBag.OtherPercent%</span>
+        </li>
+    </ul>
+
+    <!-- Entertainment Preferences -->
+    <ul class="list-group mb-4">
+        <li class="list-group-item d-flex justify-content-between">
+            <span>People who like to watch movies:</span>
+            <span>@ViewBag.MovieAvg</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>People who like to listen to radio:</span>
+            <span>@ViewBag.RadioAvg</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>People who like to eat out:</span>
+            <span>@ViewBag.EatOutAvg</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span>People who like to watch TV:</span>
+            <span>@ViewBag.TVAvg</span>
+        </li>
+    </ul>
+}
+
+@* <a asp-action="Index" asp-controller="Survey" class="btn btn-secondary">Back to Survey</a> *@

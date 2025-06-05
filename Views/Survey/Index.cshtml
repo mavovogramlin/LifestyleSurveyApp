@@ -1,0 +1,179 @@
+﻿@model LifestyleSurveyApp.Models.Survey
+@{
+    ViewData["Title"] = "Fill Out Survey";
+}
+
+<style>
+
+    .form-control,
+    .form-check-input {
+        border-color: #0d6efd; 
+    }
+    .table-bordered,
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #0d6efd !important;
+    }
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+    .form-control:focus,
+    .form-check-input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    }
+
+    
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<form asp-action="Index" method="post">
+    <div class="d-flex mb-4 align-items-start">
+        <label class="me-4 mt-2 fw-bold">Personal Details:</label>
+        <div class="flex-md-grow-0 w-50">
+
+            <div class="form-group mb-3">
+                <label>Full Names</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Date of Birth</label>
+                <input asp-for="DateOfBirth" class="form-control" type="date" value="@Model.DateOfBirth.ToString("yyyy-MM-dd")" />
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Contact Number</label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Age</label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+        <label class="me-3 mb-0"><strong>What is your favourite food?</strong></label>
+
+        <div class="form-check me-3">
+            <input asp-for="LikesPizza" class="form-check-input" />
+            <label class="form-check-label" asp-for="LikesPizza">Pizza</label>
+        </div>
+
+        <div class="form-check me-3">
+            <input asp-for="LikesPasta" class="form-check-input" />
+            <label class="form-check-label" asp-for="LikesPasta">Pasta</label>
+        </div>
+
+        <div class="form-check me-3">
+            <input asp-for="LikesPapAndWors" class="form-check-input" />
+            <label class="form-check-label" asp-for="LikesPapAndWors">Pap and Wors</label>
+        </div>
+
+        <div class="form-check me-3">
+            <input asp-for="LikesOther" class="form-check-input" />
+            <label class="form-check-label" asp-for="LikesOther">Other</label>
+        </div>
+    </div>
+
+    <p>Please rate your level of agreement on a scale from 1 to 5, with 1 being "strongly agree" and 5 being "strongly disagree."</p>
+
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-light">
+            <tr>
+                <th></th>
+                <th>Strongly Agree</th>
+                <th>Agree</th>
+                <th>Neutral</th>
+                <th>Disagree</th>
+                <th>Strongly Disagree</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-start">I like to watch movies</td>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <td>
+                        <input type="radio" name="MovieRating" value="@i" class="form-check-input"
+                        @(Model.MovieRating == i ? "checked" : "") />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="text-start">I like to listen to radio</td>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <td>
+                        <input type="radio" name="RadioRating" value="@i" class="form-check-input"
+                        @(Model.RadioRating == i ? "checked" : "") />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="text-start">I like to eat out</td>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <td>
+                        <input type="radio" name="EatOutRating" value="@i" class="form-check-input"
+                        @(Model.EatOutRating == i ? "checked" : "") />
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td class="text-start">I like to watch TV</td>
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <td>
+                        <input type="radio" name="TVRating" value="@i" class="form-check-input"
+                        @(Model.TVRating == i ? "checked" : "") />
+                    </td>
+                }
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+    <button type="submit" class="btn btn-primary">SUBMIT</button>
+</div>
+</form>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        @if (TempData["Success"] != null)
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'success',
+                    title: 'Success',
+                    text: '@TempData["Success"]'
+                            });
+            </text>
+        }
+
+        @if (ViewBag.Warning != null)
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'warning',
+                    title: 'Incomplete Survey',
+                    text: '@ViewBag.Warning'
+                            });
+            </text>
+        }
+    </script>
+}
